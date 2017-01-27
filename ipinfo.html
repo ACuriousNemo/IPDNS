@@ -1,0 +1,47 @@
+<DOCTYPE HTML!>
+<html>
+	<head>
+		<title> Display IP </title>
+		</head>
+<body>
+	<div id="greeting">
+		Hi there, here is your current I
+	</div>
+
+	<script>  
+	/* Code works now, build the html file using a web browser */ 
+	/* Inspect the web page and look at the console */
+
+	var xhr = new XMLHttpRequest(); 
+	xhr.open('GET', "https://ipinfo.io/json"); 
+	xhr.send();
+	xhr.addEventListener("readystatechange", processRequest, false);
+
+	xhr.onreadystatechange = processRequest;
+
+
+	// Some reason printing request 6 times to screen? 
+	// Figure out why and let me know 
+	function processRequest(e) {
+		if (xhr.readyState == 4 && xhr.status == 200)
+			var response = JSON.parse(xhr.responseText);
+			console.log(response);
+			//converts the JSON object to a string
+			addElement(JSON.stringify(response));
+	}
+
+	// For help https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement
+	function addElement(ipinfo) { 
+	  // create a new div element 
+	  // and give it some content 
+	  var newDiv = document.createElement("IP"); 
+	  var newContent = document.createTextNode(ipinfo); 
+	  newDiv.appendChild(newContent); //add the text node to the newly created div. 
+
+	  // add the newly created element and its content into the DOM 
+	  var currentDiv = document.getElementById("div1"); 
+	  document.body.insertBefore(newDiv, currentDiv); 
+	}
+	</script>
+</body>
+	
